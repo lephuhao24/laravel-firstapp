@@ -1,8 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\User;
+use App\Role;
+use Hash;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UsersRequest;
 
 class AdminUserController extends Controller
 {
@@ -13,7 +17,8 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -23,8 +28,8 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.users.create');
+        $roles = Role::pluck('name','id')->all();
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -33,9 +38,16 @@ class AdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsersRequest $request)
     {
         //
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->passwd);
+        $user->role_id = $request->role;
+        $user->save();
+        return redirect()->route('user.index');
     }
 
     /**
