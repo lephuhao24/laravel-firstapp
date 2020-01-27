@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Role;
+use App\Photo;
 use Hash;
 
 use Illuminate\Http\Request;
@@ -41,12 +42,13 @@ class AdminUserController extends Controller
     public function store(UsersRequest $request)
     {
         //
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->passwd);
-        $user->role_id = $request->role;
-        $user->save();
+        if($file = $request->file('photo_id')){
+            $name = time() . $file->getClientOriginalName();
+            $file->move('image', $name);
+            $photo = Photo::create(['file'=>$name]);
+            $input['photo_id'] = $photo->id;
+        }
+        User::create($input);
         return redirect()->route('user.index');
     }
 
@@ -71,7 +73,9 @@ class AdminUserController extends Controller
     public function edit($id)
     {
         //
-        return view('admin.users.edit');
+        $user = User::findOrFail($id);
+        $roles = Role::pluck('name', 'id')->all();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -81,9 +85,34 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsersRequest $request, $id)
     {
         //
+        
+        $user = User::findOrFail($id);
+        //check if requset have password or not
+        // if(trim($request->password) == ''){
+        //     $input = $request->except('password');
+        // }else{
+        //     $input = $request->all();
+        //     $input['password'] = Hash::make($request->password);
+        // };
+        //check if request has file img or not
+        if($file = $request->file('photo_id')){
+            $name = time() . $file->getClientOriginalName();
+            $file->move('image', $name);
+            $photo = Photo::create(['file'=>$name]);
+            $input['photo_id'] = $photo->id;
+        }
+        // return array($user, $input);
+        // $user->name = $input['name'];
+        // $user->role_id = $input['role_id'];
+        // $user->email = $input['email'];
+        // $user->password = $input['password'];
+        // $user->photo_id = $input['photo_id'];
+        // $user->save();
+        $user->update($input);
+        return redirect()->route('user.index');
     }
 
     /**

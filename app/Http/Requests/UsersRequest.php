@@ -26,8 +26,8 @@ class UsersRequest extends FormRequest
         return [
             'name'=>'required',
             'email'=>'required',
-            'passwd'=>'required',
-            'role'=>'required'
+            'password'=>'required',
+            'role_id'=>'required'
         ];
     }
 }

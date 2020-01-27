@@ -41,16 +41,16 @@
     {{ Form::email('email', null , ['class' => 'form-control']) }}
 </div>
 <div class="form-group">
-    {{ Form::label('passwd', 'Password' , ['class' => 'control-label']) }}
-    {{ Form::password('passwd', ['class' => 'form-control']) }}
+    {{ Form::label('password', 'Password' , ['class' => 'control-label']) }}
+    {{ Form::password('password', ['class' => 'form-control']) }}
 </div>
 <div class="form-group">
-    {{ Form::label('role', 'Role', ['class' => '']) }}
-    {{ Form::select('role',[''=>'Choose One'] + $roles, null, ['class' => 'custom-select']) }}
+    {{ Form::label('role_id', 'Role', ['class' => '']) }}
+    {{ Form::select('role_id',[''=>'Choose One'] + $roles, null, ['class' => 'custom-select']) }}
 </div>
 <div class="form-group">
-    {{form::label('file', 'File:')}}
-    {{form::file('file', null, ['class' => 'form-control'])}}
+    {{form::label('photo_id', 'File:')}}
+    {{form::file('photo_id', null, ['class' => 'form-control'])}}
 </div>
     {{Form::button('Save', ['type'=>'submit', 'class' => 'btn btn-success'])}}
 {!! Form::close() !!}
