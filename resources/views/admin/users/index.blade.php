@@ -2,6 +2,10 @@
 
 @section('content')
     <h1>Users</h1>
+    @if(Session::has('deleted_user'))
+    <hr/>
+    <div class='alert-success'>{{Session('deleted_user')}}</div>
+    @endif
     <hr/>
     <table class=" table table-responsive table-bordered table-hover table-striped">
         <thead>

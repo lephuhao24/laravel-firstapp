@@ -68,6 +68,20 @@
           </div>
         </div>
       </li>
+      {{-- --post nav item --}}
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePost" aria-expanded="true" aria-controls="collapsePost">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Post</span>
+        </a>
+        <div id="collapsePost" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Components:</h6>
+            <a class="collapse-item" href="{{route('post.index')}}">All Posts</a>
+            <a class="collapse-item" href="{{route('post.create')}}">Add Post</a>
+          </div>
+        </div>
+      </li>
 
       <hr class="sidebar-divider">
 
@@ -365,7 +379,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
+            <span>Copyright &copy; Your Website <script> var year = new Date(); document.write(year.getFullYear()); </script></span>
           </div>
         </div>
       </footer>

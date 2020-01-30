@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/error', function () {
+    return view('errors.404');
+})->name('error404');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -23,4 +27,9 @@ Route::get('/admin', function(){
     return view('admin.index');
 })->name('admin');
 
-Route::resource('/admin/user', 'AdminUserController');
+
+
+Route::group(['middleware' => 'admin'], function(){
+    Route::resource('/admin/user', 'AdminUserController');
+    Route::resource('/admin/post', 'AdminPostsController');
+});

@@ -44,4 +44,20 @@ class User extends Authenticatable
     public function photo(){
         return $this->belongsTo('App\Photo');
     }
+
+    public function posts(){
+        return $this->hasMany('App\Post');
+    }
+
+    public function setPasswordAttriute($password){
+        if(!empty($password)){
+            $this->attributes['password'] = Hass::make($password);
+        }
+    }
+    public function CheckRole(){
+        if($this->role->name == 'Admin'){
+            return true;
+        }
+        return false;
+    }
 }

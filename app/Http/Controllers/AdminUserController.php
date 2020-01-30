@@ -5,6 +5,8 @@ use App\User;
 use App\Role;
 use App\Photo;
 use Hash;
+use Auth;
+use Session;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UsersRequest;
@@ -42,6 +44,12 @@ class AdminUserController extends Controller
     public function store(UsersRequest $request)
     {
         //
+        if(trim($request->password) == ''){
+            $input = $request->except('password');
+        }else{
+            $input = $request->all();
+            $input['password'] = Hash::make($request->password);
+        };
         if($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();
             $file->move('image', $name);
@@ -91,12 +99,12 @@ class AdminUserController extends Controller
         
         $user = User::findOrFail($id);
         //check if requset have password or not
-        // if(trim($request->password) == ''){
-        //     $input = $request->except('password');
-        // }else{
-        //     $input = $request->all();
-        //     $input['password'] = Hash::make($request->password);
-        // };
+        if(trim($request->password) == ''){
+            $input = $request->except('password');
+        }else{
+            $input = $request->all();
+            $input['password'] = Hash::make($request->password);
+        };
         //check if request has file img or not
         if($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();
@@ -124,5 +132,16 @@ class AdminUserController extends Controller
     public function destroy($id)
     {
         //
+        if(Auth::check()){
+            if(Auth::user()->id == $id){
+                return '<h1> You are deleting your self </h1>';
+            }
+        };
+
+        $user = User::findOrFail($id);
+        unlink(public_path() . $user->photo->TakePath());
+        $user->delete();
+        Session::flash('deleted_user', 'the user has been deleted');
+        return redirect(route('user.index'));
     }
 }
