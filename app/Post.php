@@ -26,4 +26,5 @@ class Post extends Model
     public function photo(){
         return $this->BelongsTo('App\Photo');
     }
+    
 }
