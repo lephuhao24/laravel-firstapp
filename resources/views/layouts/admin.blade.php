@@ -93,8 +93,23 @@
         <div id="collapseCategory" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="{{route('category.index')}}">All Categories</a>
-            <a class="collapse-item" href="{{route('category.create')}}">Add Category</a>
+            <a class="collapse-item" href="{{route('media.index')}}">All Categories</a>
+            <a class="collapse-item" href="{{route('media.create')}}">Add Category</a>
+          </div>
+        </div>
+      </li>
+
+      {{-- --Media nav item --}}
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMedia" aria-expanded="true" aria-controls="collapseMedia">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Media</span>
+        </a>
+        <div id="collapseMedia" class="collapse" aria-labelledby="headingUser" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Components:</h6>
+            <a class="collapse-item" href="{{route('media.index')}}">All Media</a>
+            <a class="collapse-item" href="{{route('media.create')}}">Add Media</a>
           </div>
         </div>
       </li>
@@ -443,7 +458,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+@yield('script')
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1>Categories </h1>
+    <h1>Media</h1>
     @if(Session::has('deleted_user'))
     <hr/>
     <div class='alert-success'>{{Session('deleted_user')}}</div>
@@ -12,18 +12,20 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Image</th>
                 <th>Created</th>
                 <th>Udated</th>
             </tr>
         </thead>
         <tbody>
-            @if($categories->count() > 0)
-            @foreach($categories as $category) 
+            @if($medias)
+            @foreach($medias as $media)
             <tr>
-                <td scope="row">{{$category->id}}</td>
-                <td><a href="{{route('category.edit', [$category->id])}}">{{$category->name}}</a></td>
-                <td>{{$category->created_at->diffForHumans()}}</td>
-                <td>{{$category->updated_at->diffForHumans()}}</td>
+                <td scope="row">{{$media->id}}</td>
+                <td>{{$media->file}}</td>
+                <td><img class="thumbnail" src="{{asset(@"/image/" . $media->file)}}" alt=""></td>
+                {{-- <td>{{$media->created_at->diffForHumans()}}</td>
+                <td>{{$media->updated_at->diffForHumans()}}</td> --}}
             </tr>
             @endforeach
             @endif
